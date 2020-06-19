@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="countdown"></div>
+    <button class="startBtn">Start!</button>
+    
+    <script type="text/javascript">
+var loserAudio = new Audio("loser.mp3")
+var winnerAudio = new Audio("winner.mp3")
+
+
+const startBtn = document.querySelector('.startBtn')
+        startBtn.addEventListener('click',start)
+
+//timer
+
+var timeBegan = null
+    , timeStopped = null
+    , stoppedDuration = 0
+    , started = null;
+
+function startTimer() {
+    if (timeBegan === null) {
+        timeBegan = new Date();
+    }
+
+    if (timeStopped !== null) {
+        stoppedDuration += (new Date() - timeStopped);
+    }
+    console.log(stoppedDuration);
+
+    started = setInterval(clockRunning, 10);	
+}
+
+function stopTimer() {
+    timeStopped = new Date();
+    clearInterval(started);
+}
+ 
+function resetTimer() {
+    clearInterval(started);
+    stoppedDuration = 0;
+    timeBegan = null;
+    timeStopped = null;
+    document.getElementById("display-area").innerHTML = "00:00:00.000";
+}
+
+function clockRunning(){
+    var currentTime = new Date()
+        , timeElapsed = new Date(currentTime - timeBegan - stoppedDuration)
+        , hour = timeElapsed.getUTCHours()
+        , min = timeElapsed.getUTCMinutes()
+        , sec = timeElapsed.getUTCSeconds()
+        , ms = timeElapsed.getUTCMilliseconds();
+
+    document.getElementById("timer").innerHTML = 
+        // (hour > 9 ? hour : "0" + hour) + ":" + 
+        // (min > 9 ? min : "0" + min) + ":" + 
+        (sec > 9 ? sec : "" + sec) + "." + 
+        (ms > 99 ? ms : ms > 9 ? "0" + ms : "0" + ms);
+};
+
+// var counter = 0;
+// var interval = setInterval(function(){
+//       counter++;
+// },1000)
+
+let interval
+let stopInterval = () => {
+    clearInterval(interval)
+}
+
+let counter = 0
+
+let oldArray = []
+let newArray = []
+
+    const questions = {
+        yellow: {
+            question: "Name 5 foods that are yellow",
+            answer: ["banana", "lemon", "corn", "squash", "pineapple"]
+        },
+        bodyparts: {
+            question: "Name 5 parts of your body that start with the letter A",
+            answer: ["arms", "ankles", "abdomen", "adams apple", "armpit", "abs", "anus", "ass"]
+        },
+        crackingfoods: {
+            question: "Name 5 foods you crack before eating",
+            answer: ["eggs", "peanuts", "crab", "lobster", "coconut", "fortune cookie"]
+        }
+    }
+
+
+    const questionsArray = [
+        {
+            question: "Name 5 foods that are yellow",
+            answer: ["banana", "lemon", "corn", "squash", "pineapple"]
+        },
+        {
+            question: "Name 5 parts of your body that start with the letter A",
+            answer: ["arms", "ankles", "abdomen", "adams apple", "armpit", "abs", "anus", "ass"]
+        },
+        {
+            question: "Name 5 foods you crack before eating",
+            answer: ["eggs", "peanuts", "crab", "lobster", "coconut", "fortune cookie"]
+        }
+    ]
+
+const pickRandom = () => {
+    let listofQuestions = Object.keys(questions)
+    let randomQuestion = Math.floor(Math.random() * (listofQuestions.length))
+    let chosenQuestion = questionsArray[randomQuestion].question;
+    let chosenAnswer= questionsArray[randomQuestion].answer;
+    console.log(chosenQuestion)
+    return {
+        chosenQuestion: chosenQuestion,
+        chosenAnswer: chosenAnswer
+    }
+}
+
+
+const questiondisplay = document.createElement('div')
+            questiondisplay.classList.add('questiondisplay')
+            document.body.appendChild(questiondisplay)
+
+    // const answer = ["dog","red","yellow","apple","boxes"];
+
+        var recognition = new webkitSpeechRecognition();
+        recognition.maxAlternatives = 10;
+
+      
+        function start() {
+            
+            let randomlyPicked = pickRandom()
+            console.log(randomlyPicked.chosenQuestion)
+            console.log(randomlyPicked.chosenAnswer)
+            questiondisplay.innerText = randomlyPicked.chosenQuestion
+
+            setTimeout(startGame.bind(null, randomlyPicked.chosenAnswer), 3000)
+
+            
+        }
+
+
+const startGame = (answer) => {
+    
+    const timer = document.createElement('div')
+            timer.classList.add('.timer')
+            timer.setAttribute("id", "timer")
+            document.body.appendChild(timer)
+            startTimer();
+
+            let winner = false
+            let counter = 0
+            let interval = setInterval(()=>{
+            counter++;
+            console.log(counter)
+
+            // timer.innerText=`Time passed ${counter}`
+
+            if (counter >= 7) {
+                clearInterval(interval)
+                recognition.abort()
+                stopTimer();
+                resetTimer();
+            }
+                },1000)      
+
+                 
+            oldArray=[]
+
+          recognition.start();
+      
+          recognition.onresult = function(event) {
+            console.log(event)
+            console.log(event.results[0])
+            let words = event.results[0][0].transcript.toLowerCase()
+            let wordsArray = words.split(" ")
+            console.log(wordsArray)
+
+            let addingS = [...wordsArray]
+            for (i = 0; i < addingS.length; i++) {
+                console.log(addingS[i])
+                addingS[i] = addingS[i].concat("s")
+            }
+            let removeS = [...wordsArray]
+            for (i = 0; i < removeS.length; i++) {
+                console.log(removeS[i])
+                removeS[i] = removeS[i].slice(0,-1);
+            }
+            console.log(addingS)
+
+            newArray = wordsArray.concat(addingS).concat(removeS).concat(oldArray)
+            console.log(newArray)
+
+            const intersection = answer.filter(element => newArray.includes(element));
+            console.log(intersection)
+            if (intersection.length === 5) {
+                winnerAudio.play()
+                winner = true
+                recognition.abort()
+                resetTimer();
+                return console.log("Winner winner chicken dinner")
+                
+                } 
+        }
+
+        recognition.onend = () => {
+            oldArray = newArray
+            console.log(oldArray)
+            console.log(`counter is at ${counter}`)
+            if (counter < 7 && winner === false) {
+            recognition.start()
+            console.log('it stopped listening but starting again')
+            console.log(counter)
+                    } if (counter === 7 & winner === false) {
+                        console.log('totally stopped listening')
+                        recognition.stop()
+                        loserAudio.play()
+                        }
+
+            }
+        
+}
+       
+        
+      </script>
+      
+      <script>
+
+      </script>
+     
+
+</body>
+</html>

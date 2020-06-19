@@ -1,0 +1,14 @@
+#timer { 
+    font-size: 15rem; 
+    text-align: center;
+}
+
+.questiondisplay {
+    font-size: 6rem; 
+    text-align: center;
+}
+
+.startBtn {
+    text-align: center;
+
+}

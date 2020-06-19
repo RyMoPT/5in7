@@ -109,11 +109,23 @@ let newArray = []
         {
             question: "Name 5 foods you crack before eating",
             answer: ["eggs", "peanuts", "crab", "lobster", "coconut", "fortune cookie"]
+        },
+        {
+            question: "Name 5 organs",
+            answer: ["brain", "lungs", "liver", "skin", "intestine", "bladder", "kidney", "stomach"]
+        },
+        {
+            question: "Name 5 things that rhyme with butter",
+            answer: ["flutter", "gutter", "mutter", "shutter", "clutter", "stutter", "cutter","nutter","scutter", "sputter"]
+        },
+        {
+            question: "Name 5 body parts that start with the letter H",
+            answer: ["head", "heel", "hip", "hair", "hands", "hiney"]
         }
     ]
 
 const pickRandom = () => {
-    let listofQuestions = Object.keys(questions)
+    let listofQuestions = Object.keys(questionsArray)
     let randomQuestion = Math.floor(Math.random() * (listofQuestions.length))
     let chosenQuestion = questionsArray[randomQuestion].question;
     let chosenAnswer= questionsArray[randomQuestion].answer;
@@ -136,6 +148,10 @@ const questiondisplay = document.createElement('div')
 
       
         function start() {
+
+            if (document.querySelector('.timer')) {
+                document.getElementById("timer").innerHTML = '';
+            }
             
             let randomlyPicked = pickRandom()
             console.log(randomlyPicked.chosenQuestion)
@@ -151,7 +167,7 @@ const questiondisplay = document.createElement('div')
 const startGame = (answer) => {
     
     const timer = document.createElement('div')
-            timer.classList.add('.timer')
+            timer.classList.add('timer')
             timer.setAttribute("id", "timer")
             document.body.appendChild(timer)
             startTimer();

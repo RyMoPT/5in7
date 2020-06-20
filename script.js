@@ -4,6 +4,13 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
     location.href = "sorry.html";
   }
 
+  let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+
+    if (isMobile) {
+        location.href = "sorry.html";
+    }
+ 
+
 var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal

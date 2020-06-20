@@ -10,6 +10,12 @@ body {
     color: #fff;
 }
 
+.container2 {
+    margin-top: 10rem;
+    text-align: center;
+    color: #fff;
+}
+
 #timer { 
     font-size: 12rem; 
     text-align: center;

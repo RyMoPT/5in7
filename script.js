@@ -1,3 +1,9 @@
+if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+    // speech recognition API supported
+  } else {
+    location.href = "sorry.html";
+  }
+
 var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal

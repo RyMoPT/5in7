@@ -237,11 +237,11 @@ const startGame = (answer) => {
             }
 
             newArray = wordsArray.concat(addingS).concat(removeS).concat(oldArray)
-            console.log(newArray)
+            // console.log(newArray)
 
             const intersection = answer.filter(element => newArray.includes(element));
-            console.log(intersection)
-            if (intersection.length === 5) {
+            console.log(`WORDS THAT MATCHED: ${intersection}`)
+            if (intersection.length >= 5) {
                 beep.pause();
                 beep.currentTime = 0;
                 winnerAudio.play()

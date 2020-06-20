@@ -12,7 +12,7 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
  
 var recognitionprimer = new webkitSpeechRecognition();
 recognitionprimer.start();
-recognitionprimer.stop();
+recognitionprimer.abort()
 
 
 var modal = document.getElementById("myModal");

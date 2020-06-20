@@ -1,5 +1,27 @@
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
 var loserAudio = new Audio("loser.mp3")
 var winnerAudio = new Audio("winner.mp3")
+var beep = new Audio("beepfull6s.mp3")
 
 const container = document.querySelector('.container')
 
@@ -135,6 +157,9 @@ function start() {
             if (document.contains(document.querySelector('.questiondisplay'))) {
                 container.removeChild(document.querySelector('.questiondisplay'))
             }
+            if (document.contains(document.querySelector('.timer'))) {
+                container.removeChild(document.querySelector('.timer'))
+            }
 
 
             //creating question display dynamically so we can use css to add animation
@@ -156,11 +181,14 @@ const startGame = (answer) => {
             timer.setAttribute("id", "timer")
             container.appendChild(timer)
             startTimer();
+            beep.play();
 
             let winner = false
             let counter = 0
             let interval = setInterval(()=>{
             counter++;
+            console.log(counter)
+            
             // console.log(counter)
 
             // timer.innerText=`Time passed ${counter}`
@@ -201,6 +229,8 @@ const startGame = (answer) => {
             const intersection = answer.filter(element => newArray.includes(element));
             console.log(intersection)
             if (intersection.length === 5) {
+                beep.pause();
+                beep.currentTime = 0;
                 winnerAudio.play()
                 winner = true
                 startBtn.style.display="initial";

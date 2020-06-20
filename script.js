@@ -119,7 +119,7 @@ let newArray = []
         },
         {
             question: "Name 5 organs",
-            answer: ["brain", "heart", "lungs", "liver", "skin", "intestine", "bladder", "kidney", "stomach"]
+            answer: ["brain", "spleen", "heart", "lungs", "liver", "skin", "intestine", "bladder", "kidney", "stomach"]
         },
         {
             question: "Name 5 things that rhyme with butter",
@@ -127,7 +127,7 @@ let newArray = []
         },
         {
             question: "Name 5 body parts that start with the letter H",
-            answer: ["head", "heel", "hip", "hair", "hands", "hiney", "heal", "hare"]
+            answer: ["head", "heel", "hip", "hair", "hands", "hiney", "heal", "hare", "heart", "hart", "hear"]
         }
     ]
 

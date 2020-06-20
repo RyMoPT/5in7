@@ -10,6 +10,10 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
         location.href = "sorry.html";
     }
  
+var recognitionprimer = new webkitSpeechRecognition();
+recognitionprimer.start();
+recognitionprimer.stop();
+
 
 var modal = document.getElementById("myModal");
 

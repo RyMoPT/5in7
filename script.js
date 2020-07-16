@@ -271,6 +271,41 @@ const startGame = (answer) => {
                         recognition.stop()
                         loserAudio.play()
                         startBtn.style.display="initial";
+                        let vara = new Vara("#svgContainer",
+                        "https://raw.githubusercontent.com/akzhy/Vara/master/fonts/Parisienne/Parisienne.json",
+                        [{
+                            text:"Loser."
+                        }],{
+                            fontSize:300,
+                            strokeWidth: 2,
+                            textAlign:"center",
+                            duration: 4000,
+                            color:"white",
+                            letterSpacing: -80,
+                            y: 1000,
+                             
+                        });
+                        vara.ready(function(){
+                            let erase = true;
+                            vara.animationEnd(function(i, o){
+
+                                console.log(i)
+                                console.log(o)
+                                if(i== "no_erase") erase = false;
+                                if(erase) {
+                                    setTimeout(() => {
+                                        o.container.style.transition = "opacity ls ls";
+                                        o.container.style.opacity = 0
+                                        o.container.style.display = "none"
+                                        document.querySelector("#svgContainer").style.display="none"
+                                    }, 2000)
+                              
+
+                                }
+                            })
+
+                        })
+                       
                         }
 
             }
